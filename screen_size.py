@@ -32,11 +32,17 @@ def screenSize(diag, relativeWidth, relativeHeight):
     return [width, height]
 
 
+def dpi(widthInches, horizontalPixels):
+    return horizontalPixels / widthInches
+
+
 def printUserScreenSize():
     parser = argparse.ArgumentParser(
-        description='Calculate actual screen-width and -height - from given actual diagonal screen-size, relative screen-width & -height, e.g. --diag 32 --rw 16 --rh 9 (representing a 32", 16:9 screen)')
+        description='Calculate actual screen-width and -height - from given diagonal screen-size & aspect ratio, e.g. --diag 32 --rw 16 --rh 9 (representing a 32", 16:9 screen). Optionally include DPI output - if pixel-width is provided (e.g. --pixels 3840 for a 4K screen)')
     parser.add_argument('--dp', dest='decimal_places', type=int,
                         help='# of decimal places for the output (int, default 2)', nargs=1, default=[2])
+    parser.add_argument('--pixels', dest='horizontal_pixels',
+                        type=int, help='# of pixels across 1-row of screen', nargs=1)
     required = parser.add_argument_group('Required args')
     required.add_argument('--diag', dest='diagonal_size', type=float,
                           help='actual diagonal size of screen (float)', nargs=1, required=True)
@@ -50,8 +56,14 @@ def printUserScreenSize():
     rh = args.relative_height[0]
     dp = args.decimal_places[0]
     dimensions = screenSize(diag=diag, relativeWidth=rw, relativeHeight=rh)
+    width = dimensions[0]
+    height = dimensions[1]
     print(
-        f"Screen size with diagonal of {diag} has 'width x height' of '{dimensions[0]:.{dp}f} x {dimensions[1]:.{dp}f}'")
+        f"{diag}\"-screen has 'width x height' of '{width:.{dp}f} x {height:.{dp}f}'")
+    if args.horizontal_pixels is not None:
+        pixels = args.horizontal_pixels[0]
+        ppi = dpi(width, pixels)
+        print(f'DPI = {ppi:.{dp}f}')
 
 
 if __name__ == '__main__':
