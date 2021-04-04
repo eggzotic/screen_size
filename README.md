@@ -34,7 +34,7 @@ $ python screen_size.py --diag 43 --rw 16 --rh 9
 43.0"-screen has 'width x height' of '37.48 x 21.08'
 ```
 
-Include DPI, e.g. for a 4K screen the horizontal pixels is 3840:
+Include DPI, e.g. for a 4K screen the horizontal pixel-count is 3840:
 
 ```
 $ python screen_size.py --diag 43 --rw 16 --rh 9 --pixels 3840
