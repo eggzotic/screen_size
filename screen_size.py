@@ -38,7 +38,7 @@ def printUserScreenSize():
     parser.add_argument('--dp', dest='decimal_places', type=int,
                         help='# of decimal places for the output (default 2)', nargs=1, default=[2])
     required = parser.add_argument_group('Required args')
-    required.add_argument('--diag', dest='diagonal_size', type=int,
+    required.add_argument('--diag', dest='diagonal_size', type=float,
                           help='actual diagonal size of screen', nargs=1, required=True)
     required.add_argument('--rw', dest='relative_width', type=int,
                           help='relative width of screen', nargs=1, required=True)
