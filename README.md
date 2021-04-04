@@ -28,5 +28,5 @@ $ python screen_size.py --diag 43 --rw 16 --rh 9
 Screen size with diagonal of 43 has 'width x height' of '37.48 x 21.08'
 ```
 
-Richard Shepherd
+Richard Shepherd.
 April, 2021
