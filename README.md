@@ -1,6 +1,6 @@
 # Screen Size
 
-Small python3 script to calculate screen-width & -height from a given diagonal-size and aspect ratio
+Small python3 script to calculate screen-width & -height from a given diagonal-size and aspect ratio. Remember that in real life, you'll need to add extra space for the bezel, and maybe some height for the stand. But that at least allows you to appreciate the space taken up by the screen alone.
 
 ## How to use
 
