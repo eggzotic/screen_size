@@ -27,7 +27,7 @@ Required args:
   --rh RELATIVE_HEIGHT  relative height of screen (int)
 ```
 
-## Example
+## Examples
 
 Screen size calculations:
 
