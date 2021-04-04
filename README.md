@@ -29,4 +29,5 @@ Screen size with diagonal of 43 has 'width x height' of '37.48 x 21.08'
 ```
 
 Richard Shepherd.
+
 April, 2021
