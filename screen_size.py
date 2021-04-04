@@ -4,6 +4,10 @@
 import math
 import argparse
 
+# for inches -to- cm conversions
+CM_PER_INCH = 2.54
+MM_PER_CM = 10
+
 
 def screenSize(diag, relativeWidth, relativeHeight):
     # given a screen-size (as a diagonal-size) and the aspect-ratio of the wridth-to-height
@@ -16,8 +20,8 @@ def screenSize(diag, relativeWidth, relativeHeight):
     #  w, h
     #
     # and so the math is:
-    #  w / h = rw / rh
-    #  => w = (rw / rh) * h                  **
+    #     w / h = rw / rh
+    #  => w     = (rw / rh) * h                  **
     #  Pythagoras: w^2 + h^2 = diag^2
     #  => ((rw / rh) * h)^2 + h^2 = diag^2   replacing w from ** above
     #  => (1 + (rw/rh)^2) * h^2 = diag^2     factorising the h^2
@@ -36,6 +40,19 @@ def dpi(widthInches, horizontalPixels):
     return horizontalPixels / widthInches
 
 
+def inToCm(inches):
+    return inches * CM_PER_INCH
+
+
+def dpiToDpCm(dpi):
+    return dpi / CM_PER_INCH
+
+
+def dotPitch(diagInches, ppi):
+    diagPixels = ppi * diagInches
+    return diagInches * CM_PER_INCH * MM_PER_CM / diagPixels
+
+
 def printUserScreenSize():
     parser = argparse.ArgumentParser(
         description='Calculate actual screen-width and -height - from given diagonal screen-size & aspect ratio, e.g. --diag 32 --rw 16 --rh 9 (representing a 32", 16:9 screen). Optionally include DPI output - if pixel-width is provided (e.g. --pixels 3840 for a 4K screen)')
@@ -45,7 +62,7 @@ def printUserScreenSize():
                         type=int, help='# of pixels across 1-row of screen', nargs=1)
     required = parser.add_argument_group('Required args')
     required.add_argument('--diag', dest='diagonal_size', type=float,
-                          help='actual diagonal size of screen (float)', nargs=1, required=True)
+                          help='actual diagonal size of screen (inches, float)', nargs=1, required=True)
     required.add_argument('--rw', dest='relative_width', type=int,
                           help='relative width of screen (int)', nargs=1, required=True)
     required.add_argument('--rh', dest='relative_height', type=int,
@@ -58,12 +75,26 @@ def printUserScreenSize():
     dimensions = screenSize(diag=diag, relativeWidth=rw, relativeHeight=rh)
     width = dimensions[0]
     height = dimensions[1]
-    print(
-        f"{diag}\"-screen has 'width x height' of '{width:.{dp}f} x {height:.{dp}f}'")
-    if args.horizontal_pixels is not None:
+    calculateDpi = args.horizontal_pixels is not None
+    if calculateDpi:
         pixels = args.horizontal_pixels[0]
         ppi = dpi(width, pixels)
-        print(f'DPI = {ppi:.{dp}f}')
+        ppiS = ppi * ppi
+        dotPitchMm = dotPitch(diagInches=diag, ppi=ppi)
+    print("inches (Imperial)")
+    print(
+        f" {diag}\"-screen has 'width x height' of '{width:.{dp}f}\" x {height:.{dp}f}\"'")
+    if calculateDpi:
+        print(f'  DPI = {ppi:.{dp}f}')
+        print(f'  DPI^2 = {ppiS:.{dp}f}')
+    print("cm (Metric)")
+    print(f" {inToCm(diag):.{dp}f}cm-screen has 'width x height' of '{inToCm(width):.{dp}f}cm x {inToCm(height):.{dp}f}cm'")
+    if calculateDpi:
+        ppCm = dpiToDpCm(ppi)
+        ppSCm = ppCm * ppCm
+        print(f'  Pixels-per-CM = {ppCm:.{dp}f}')
+        print(f'  Pixels-per-Square-CM = {ppSCm:.{dp}f}')
+        print(f'  Dot-Pitch = {dotPitchMm:.{dp}f}mm')
 
 
 if __name__ == '__main__':
