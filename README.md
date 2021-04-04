@@ -8,17 +8,17 @@ Small python3 script to calculate screen-width & -height from a given diagonal-s
 $ python screen_size.py -h
 usage: screen_size.py [-h] [--dp DECIMAL_PLACES] --diag DIAGONAL_SIZE --rw RELATIVE_WIDTH --rh RELATIVE_HEIGHT
 
-Calculate actual screen-width and -height - from given actual diagonal screen-size, relative screen-width & -height,
-e.g. --diag 32 --rw 16 --rh 9 (representing a 32", 16:9 screen)
+Calculate actual screen-width and -height - from given actual diagonal screen-size, relative screen-width & -height, e.g. --diag
+32 --rw 16 --rh 9 (representing a 32", 16:9 screen)
 
 optional arguments:
   -h, --help            show this help message and exit
   --dp DECIMAL_PLACES   # of decimal places for the output (default 2)
 
 Required args:
-  --diag DIAGONAL_SIZE  actual diagonal size of screen
-  --rw RELATIVE_WIDTH   relative width of screen
-  --rh RELATIVE_HEIGHT  relative height of screen
+  --diag DIAGONAL_SIZE  actual diagonal size of screen (float)
+  --rw RELATIVE_WIDTH   relative width of screen (int)
+  --rh RELATIVE_HEIGHT  relative height of screen (int)
 ```
 
 ## Example
