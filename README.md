@@ -15,7 +15,7 @@ Calculate actual screen-width and -height - from given actual diagonal screen-si
 
 optional arguments:
   -h, --help            show this help message and exit
-  --dp DECIMAL_PLACES   # of decimal places for the output (default 2)
+  --dp DECIMAL_PLACES   # of decimal places for the output (int, default 2)
 
 Required args:
   --diag DIAGONAL_SIZE  actual diagonal size of screen (float)

@@ -36,7 +36,7 @@ def printUserScreenSize():
     parser = argparse.ArgumentParser(
         description='Calculate actual screen-width and -height - from given actual diagonal screen-size, relative screen-width & -height, e.g. --diag 32 --rw 16 --rh 9 (representing a 32", 16:9 screen)')
     parser.add_argument('--dp', dest='decimal_places', type=int,
-                        help='# of decimal places for the output (default 2)', nargs=1, default=[2])
+                        help='# of decimal places for the output (int, default 2)', nargs=1, default=[2])
     required = parser.add_argument_group('Required args')
     required.add_argument('--diag', dest='diagonal_size', type=float,
                           help='actual diagonal size of screen (float)', nargs=1, required=True)
